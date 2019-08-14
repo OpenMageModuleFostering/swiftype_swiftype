@@ -3,7 +3,7 @@
 class Swiftype_Swiftype_Model_Resource_Fulltext
     extends Mage_CatalogSearch_Model_Resource_Fulltext
 {
-    const PER_PAGE = 20;
+    const PER_PAGE = 100;
     
     final public function cleanIndex($storeId = null, $productId = null)
     {
@@ -70,15 +70,7 @@ class Swiftype_Swiftype_Model_Resource_Fulltext
     {
         $results = array();
         $result = $this->_getResult($query);
-        $results = $result->records->product;
-        
-        if ($result->info->product->num_pages > 1) {
-            for ($page = 2; $page <= $result->info->product->num_pages; $page++) {
-                $result = $this->_getResult($query, $page);
-                $results = array_merge($results, $result->records->product);
-            }
-        }
-        
+        $results = $result->records->product;       
         return $results;
     }
     
