@@ -1,0 +1,16 @@
+{
+    "name": "OpenMageModuleFostering/Swiftype_Swiftype",
+    "type": "magento-module",
+    "license": "AGPL",
+    "homepage": "",
+    "description": "Great search for your Magento store.",
+    "authors": [
+    {
+        "name": "Swiftype",
+        "email": "team@swiftype.com"
+    }
+],
+    "suggest": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}

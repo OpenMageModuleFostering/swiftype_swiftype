@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Swiftype_Swiftype>
+            <codePool>community</codePool>
+            <active>true</active>
+        </Swiftype_Swiftype>
+    </modules>
+</config>

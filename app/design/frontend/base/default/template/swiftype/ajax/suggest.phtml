@@ -1,0 +1,45 @@
+<?php
+$helper = Mage::helper('swiftype');
+/* @var $helper Swiftype_Swiftype_Helper_Data */
+
+$products = $helper->getSuggestedProducts();
+$productCount = count($products);
+$suggestData = array();
+$counter = 0;
+$descriptionLimit = 150;
+
+foreach ($products as $product) {
+    /* @var $product Mage_Catalog_Model_Product */
+    $suggestDatum = array(
+        'product' => $product,
+        'name' => $product->getName(),
+        'title' => $product->getName(),
+        'href' => $product->getUrlInStore(),
+        'description' => (strlen($product->getShortDescription()) > $descriptionLimit) ?
+            substr($product->getShortDescription(), 0, $descriptionLimit)."..." : $product->getShortDescription(),
+        'onClick' => $helper->getOnClickAutoselect($product)
+    );
+
+    if ($counter == 1) {
+        $suggestDatum['row_class'] = $suggestDatum['row_class'] . ' first';
+    } elseif ($counter == $productCount) {
+        $suggestDatum['row_class'] = $suggestDatum['row_class'] . ' last';
+    }
+
+    $suggestData[] = $suggestDatum;
+}
+?>
+<?php if ($productCount) : ?>
+<ul>
+    <li style="display:none"></li>
+    <?php foreach ($suggestData as $suggestDatum) : ?>
+    <li title="<?php echo str_replace('"', '', $suggestDatum['title']);?>" class="<?php echo str_replace('"', '', $suggestDatum['row_class']); ?>" style="background: #fff;">
+        <a href="<?php echo $suggestDatum['href']; ?>" onClick="<?php echo $suggestDatum['onClick']; ?>" style="display: block; position: relative; background: #fff; text-decoration: none; margin: 0; padding: 0 0 6px;">
+            <img style="position: absolute; left: -2px; top: 2px; margin: 0; border: 0;" src="<?php echo $this->helper('catalog/image')->init($suggestDatum['product'], 'thumbnail')->resize(56, 56); ?>" width="56" height="56"/>
+            <div style="padding: 8px 5px 0 60px; font-size: 11px; line-height: 1.4; font-weight: bold;"><?php echo htmlentities($suggestDatum['name']); ?></div>
+            <div style="padding: 2px 5px 5px 60px; min-height: 36px; overflow: hidden; font-size: 10px; line-height: 1.33; color: #777;"><?php echo htmlentities($suggestDatum['description']); ?></div>
+        </a>
+    </li>
+    <?php endforeach; ?>
+</ul>
+<?php endif; ?>
