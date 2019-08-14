@@ -84,18 +84,26 @@ class Swiftype_Swiftype_Model_Resource_Fulltext
     {
         $storeId = $query->getStoreId();
         
+        $getParams = array(
+            'auth_token' => $this->_getHelper()->getAuthToken($storeId),
+            'q' => $this->_getQueryText($query),
+            'per_page' => self::PER_PAGE,
+            'page' => $page
+        );
+        
+        $spelling = $this->_getHelper()->getSpelling($storeId);
+                
+        if ($spelling === Swiftype_Swiftype_Helper_Data::RETRY_SPELLING_OPTION) {
+            $getParams['spelling'] = Swiftype_Swiftype_Helper_Data::RETRY_SPELLING_OPTION;
+        }
+        
         $swiftypeApiParameters = array(
             'uri' => array(
                 'engines' => $this->_getHelper()->getEngineSlug($storeId),
                 'document_types' => Swiftype_Swiftype_Helper_Data::DOCUMENT_TYPE,
                 'search' => null
             ),
-            'get' => array(
-                'auth_token' => $this->_getHelper()->getAuthToken($storeId),
-                'q' => $this->_getQueryText($query),
-                'per_page' => self::PER_PAGE,
-                'page' => $page
-            )
+            'get' => $getParams
         );
 
         $swiftypeApiClient = $this->_getHelper()->getSwiftypeClient($swiftypeApiParameters);

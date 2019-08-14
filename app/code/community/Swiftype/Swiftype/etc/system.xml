@@ -86,6 +86,21 @@
                             </depends>
                             <validate>validate-number</validate>
                         </swiftype_autocomplete_limit>
+                        <swiftype_spelling>
+                            <label>Use Swiftype Spelling Correction</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>swiftype/system_config_source_catalog_search_spelling</source_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <engine>swiftype/fulltext_engine</engine>
+                            </depends>
+                            <comment>
+                                <![CDATA[Only available to Business level and above customers. Visit <a href='https://swiftype.com/pricing' target='_blank'>pricing page</a> to learn more and upgrade.]]>
+                            </comment>
+                        </swiftype_spelling>
                     </fields>
                 </search>
             </groups>

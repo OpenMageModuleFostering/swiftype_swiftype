@@ -16,7 +16,9 @@ class Swiftype_Swiftype_Helper_Data
     const DOCUMENT_FIELD_TYPE_FLOAT = 'float';
     const DOCUMENT_FIELD_TYPE_DATE = 'date';
     const DOCUMENT_FIELD_TYPE_LOCATION = 'location';
-
+    
+    const NO_SPELLING_OPTION = 'no';
+    const RETRY_SPELLING_OPTION = 'retry';
 
     final public function handleException(Exception $exception, $throw = false, $log = true)
     {
@@ -312,7 +314,16 @@ class Swiftype_Swiftype_Helper_Data
     {
         return Mage::getStoreConfig('catalog/search/swiftype_autocomplete_limit', $store);
     }
-
+    
+    final public function getSpelling($store = null)
+    {
+        if (!$this->getUseSwiftype()) {
+            return false;
+        }
+        
+        return Mage::getStoreConfig('catalog/search/swiftype_spelling', $store);
+    }
+    
     final public function getUseSwiftypeAutocomplete($store = null)
     {
         if (!$this->getUseSwiftype()) {
