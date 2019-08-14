@@ -243,10 +243,9 @@ class Swiftype_Swiftype_Helper_Data
         $uri = Swiftype_Swiftype_Helper_Data::API_URL;
 
         foreach ($params['uri'] as $name => $value) {
-            $uri .= "/$name";
+            $uri .= '/' . urlencode($name);
             if ($value) {
-                $value = preg_replace('/\s+/', '', $value);
-                $uri .= "/$value";
+                $uri .= '/' . urlencode($value);
             }
         }
 
@@ -296,17 +295,17 @@ class Swiftype_Swiftype_Helper_Data
 
     final public function getApiKey($store = null)
     {
-        return Mage::getStoreConfig('catalog/search/swiftype_api_key', $store);
+        return preg_replace('/[^A-Za-z0-9\-_]/', '', Mage::getStoreConfig('catalog/search/swiftype_api_key', $store));
     }
 
     final public function getEngineSlug($store = null)
     {
-        return Mage::getStoreConfig('catalog/search/swiftype_engine_slug', $store);
+        return preg_replace('/[^A-Za-z0-9\-_]/', '', Mage::getStoreConfig('catalog/search/swiftype_engine_slug', $store));
     }
 
     final public function getEngineKey($store = null)
     {
-        return Mage::getStoreConfig('catalog/search/swiftype_engine_key', $store);
+        return preg_replace('/[^A-Za-z0-9\-_]/', '', Mage::getStoreConfig('catalog/search/swiftype_engine_key', $store));
     }
 
     final public function getAutocompleteLimit($store = null)

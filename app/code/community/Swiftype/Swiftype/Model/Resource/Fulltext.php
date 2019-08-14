@@ -40,15 +40,6 @@ class Swiftype_Swiftype_Model_Resource_Fulltext
         return Mage::getResourceSingleton($engine);
     }
 
-    final protected function _getSearchableProducts($storeId, array $staticFields, $productIds = null, $lastProductId = 0, $limit = 100)
-    {
-        if ($this->_getHelper()->getUseSwiftype($storeId)) {
-            $limit = null;
-        }
-
-        return parent::_getSearchableProducts($storeId, $staticFields, $productIds, $lastProductId, $limit);
-    }
-
     /**
      * @return Swiftype_Swiftype_Helper_Data
      */
