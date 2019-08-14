@@ -245,6 +245,7 @@ class Swiftype_Swiftype_Helper_Data
         foreach ($params['uri'] as $name => $value) {
             $uri .= "/$name";
             if ($value) {
+                $value = preg_replace('/\s+/', '', $value);
                 $uri .= "/$value";
             }
         }

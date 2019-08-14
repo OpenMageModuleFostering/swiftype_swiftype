@@ -134,33 +134,17 @@ class Swiftype_Swiftype_Model_Resource_Fulltext
     final protected function _prepareResults(array $results, Mage_CatalogSearch_Model_Query $query)
     {
         $preparedResults = array();
-        $resultCount = count($results);
-        $customRelevance = false;
+        $customRelevance = count($results);
 
         foreach ($results as $result) {
             /* @var $result stdClass */
-            $relevance = isset($result->_score) ? $result->_score : 0;
-            // Indicates custom ordering
-            if (!$relevance) {
-                $customRelevance = true;
-                break;
-            }
-        }
-
-        foreach ($results as $result) {
-            /* @var $result stdClass */
-            $relevance = isset($result->_score) ? $result->_score : 0;
-
-            if ($customRelevance) {
-                $relevance = $resultCount;
-                $resultCount--;
-            }
-
             $preparedResults[] = array(
                 'product_id' => (int)$result->product_id,
                 'query_id' => (int)$query->getId(),
-                'relevance' => $relevance
+                'relevance' => $customRelevance
             );
+            
+            $customRelevance--;
         }
 
         return $preparedResults;
